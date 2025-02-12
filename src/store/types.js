@@ -1,0 +1,24 @@
+// auth
+export const LOGIN_ACTION = "LOGIN_ACTION";
+export const SET_AUTH = "SET_AUTH";
+export const GET_ME = "GET_ME";
+export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
+export const ADD_USER = "ADD_USER";
+export const DELETE_USER = "DELETE_USER";
+export const GET_SERVICES = "GET_SERVICES";
+export const DELETE_SERVICES = "DELETE_SERVICES";
+export const EDIT_SERVICES = "EDIT_SERVICES";
+export const ADD_SERVICES = "ADD_SERVICES";
+export const GET_RESULTS = "GET_RESULTS";
+export const DENGER_DELETE = "DENGER_DELETE";
+export const GET_WORKS = "GET_WORKS";
+export const ADD_WORKS = "ADD_WORKS";
+export const DELETE_WORKS = "DELETE_WORKS";
+export const EDIT_WORK = "EDIT_WORK";
+export const GET_ACCESS_WORKS = "GET_ACCESS_WORKS";
+export const DELETE_ACCESS_WORKS = "DELETE_ACCESS_WORKS";
+export const GET_CATEGORY = "GET_CATEGORY";
+export const GET_ADMIN = "GET_ADMIN";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const ADD_CATEGORY = "ADD_CATEGORY";
