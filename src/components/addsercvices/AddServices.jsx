@@ -33,7 +33,7 @@ const AddServices = ({ open, setClose }) => {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "Enter") {
+      if (event.key == "Enter") {
         if (name !== "" && price !== "" && benefit !== "") {
           dispatch(
             addService({
@@ -47,6 +47,7 @@ const AddServices = ({ open, setClose }) => {
           setPrice("");
           setBenefit("");
           setClose(false);
+          setClose(false);
         }
 
       }
@@ -59,7 +60,7 @@ const AddServices = ({ open, setClose }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [price, benefit, name, dispatch, id, setClose, setPrice, setBenefit, setName]);
+  }, []);
 
   return (
     <Modal

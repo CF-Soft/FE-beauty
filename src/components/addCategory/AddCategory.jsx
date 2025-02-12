@@ -29,7 +29,7 @@ const AddCategory = ({ open, setClose }) => {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "Enter") {
+      if (event.key == "Enter") {
         if (name !== "") {
           dispatch(addCategory({ name: name }));
           setClose(false);
@@ -44,7 +44,7 @@ const AddCategory = ({ open, setClose }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [dispatch, name,  setClose]);
+  }, []);
 
   return (
     <Modal

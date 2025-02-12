@@ -33,10 +33,10 @@ const Navbar = ({ close, setClose }) => {
   const open = Boolean(anchorEl);
   useEffect(() => {
     dispatch(getMe());
-  }, [dispatch]);
+  }, []);
   useEffect(() => {
     dispatch(getAccessWorks());
-  }, [role, dispatch]);
+  }, [role]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,7 +63,7 @@ const Navbar = ({ close, setClose }) => {
               />
             </div>
           )}
-          {role === "superAdmin" && (
+          {role == "superAdmin" && (
             <div className="item">
               <Button
                 sx={{ color: "white" }}
@@ -74,7 +74,7 @@ const Navbar = ({ close, setClose }) => {
             </div>
           )}
           <div className="item">
-            {data?.length > 0 && role === "superAdmin" && (
+            {data?.length > 0 && role == "superAdmin" && (
               <Button
                 variant="outlined"
                 sx={{
@@ -105,12 +105,12 @@ const Navbar = ({ close, setClose }) => {
           {isAuth && (
             <div className="item">
               <h2 style={{ color: "white" }}>
-                {role === "superAdmin" ? "Սուպեր Ադմին" : "Ադմին"}
+                {role == "superAdmin" ? "Սուպեր Ադմին" : "Ադմին"}
               </h2>
             </div>
           )}
 
-          {data?.length > 0 && role === "admin" && (
+          {data?.length > 0 && role == "admin" && (
             <div className="item">
               <Button
                 variant="contained"

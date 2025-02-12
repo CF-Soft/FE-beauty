@@ -43,7 +43,7 @@ const Home = () => {
     dispatch(getUsers());
     dispatch(getMe());
     dispatch(getCategory());
-  }, [dispatch]);
+  }, []);
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>
       <Box
@@ -109,7 +109,7 @@ const Home = () => {
               <Typography gutterBottom variant="h5" component="div">
                 {i?.name}
               </Typography>
-              {role === "superAdmin" && (
+              {role == "superAdmin" && (
                 <Box
                   p={2}
                   sx={{
@@ -149,7 +149,7 @@ const Home = () => {
                       alignItems: "center",
                     }}
                     onClick={() =>
-                      role === "admin" && navigate(`/work/${row.id}`)
+                      role == "admin" && navigate(`/work/${row.id}`)
                     }
                   >
                     <CardContent>
@@ -157,7 +157,7 @@ const Home = () => {
                         {row.name}
                       </Typography>
                     </CardContent>
-                    {role === "superAdmin" && (
+                    {role == "superAdmin" && (
                       <>
                         <CardActions
                           sx={{

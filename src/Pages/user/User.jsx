@@ -21,6 +21,12 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { HOME_PAGE } from "../../routing/pats";
 import AddIcon from "@mui/icons-material/Add";
 import AddServices from "../../components/addsercvices/AddServices";
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import CalculateIcon from "@mui/icons-material/Calculate";
 import Results from "../../components/results/Results";
 import { getMe } from "../../store/actions/auth-action";
 
@@ -33,7 +39,7 @@ const User = () => {
   const [add, setSetAdd] = useState(false);
   const [results, setResults] = useState(false);
 
-  const [value] = useState(null);
+  const [value, setValue] = useState(null);
   const handleOpen = () => setOpen(true);
   const data = useSelector((state) => state.users.services);
   const role = useSelector((state) => state.auth.isSuper);
@@ -46,12 +52,12 @@ const User = () => {
         date: value,
       })
     );
-  }, [value, dispatch, id]);
+  }, [value]);
 
   useEffect(() => {
     dispatch(getUser({ id }));
     dispatch(getMe());
-  }, [dispatch, id]);
+  }, []);
   return (
     <Box>
       <Box p={2}>

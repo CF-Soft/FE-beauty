@@ -30,7 +30,7 @@ const AddWork = ({ open, setClose, current, setCurrent, category }) => {
   console.log(category, "category");
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "Enter") {
+      if (event.key == "Enter") {
         dispatch(
           addWork({
             userId: id,
@@ -49,7 +49,7 @@ const AddWork = ({ open, setClose, current, setCurrent, category }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [dispatch, setCurrent, setClose, current, id]);
+  }, []);
 
   return (
     <Modal

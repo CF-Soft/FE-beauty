@@ -1,6 +1,7 @@
 import axios from "axios";
 import { keys } from "../../keys";
 import { ADD_CATEGORY, DELETE_CATEGORY, GET_CATEGORY } from "../types";
+import Swal from "sweetalert2";
 
 export const getCategory = () => {
   return (dispatch) => {
@@ -40,7 +41,12 @@ export const deleteCategory = (data) => {
             type: DELETE_CATEGORY,
             payload: data,
           });
-        }
+        } else
+        Swal.fire({
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch(function (error) {
         console.error(error);
@@ -62,7 +68,12 @@ export const addCategory = (data) => {
             type: ADD_CATEGORY,
             payload: response.data.data,
           });
-        }
+        } else
+        Swal.fire({
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch(function (error) {
         console.error(error);

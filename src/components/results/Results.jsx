@@ -21,12 +21,17 @@ const Results = ({ open, setClose, all }) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [value, setValue] = useState(null);
-  const [month] = useState(null);
+  const [month, setMonth] = useState(null);
   const [monthly, setMontly] = useState(false);
   const data = useSelector((state) => state.users.results);
   const role = useSelector((state) => state.auth.isSuper);
   const isMobile = useIsMobile();
+  const [selectedDateRange, setSelectedDateRange] = useState([null, null]);
 
+  const handleDateChange = (date) => {
+    // date will be an array with the selected start and end date
+    setSelectedDateRange(date);
+  };
   const style = {
     position: "absolute",
     top: "50%",
@@ -41,7 +46,7 @@ const Results = ({ open, setClose, all }) => {
   };
   useEffect(() => {
     dispatch(getMe());
-    if (role === "superAdmin") {
+    if (role == "superAdmin") {
       const yourDateObject = new Date();
 
       const yourDayjsObject = dayjs(yourDateObject);
@@ -71,7 +76,7 @@ const Results = ({ open, setClose, all }) => {
             date: value,
           })
         );
-  }, [id, open, value, monthly, all, dispatch, role]);
+  }, [id, open, value, monthly]);
 
   const getMonth = (month) => {
     const startOfMonth = month?.startOf("month");
