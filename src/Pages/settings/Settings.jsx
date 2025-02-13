@@ -1,7 +1,6 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { editAdmin, getAdmin, getMe } from "../../store/actions/auth-action";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -35,7 +34,7 @@ const Settings = () => {
   useEffect(() => {
     dispatch(getMe());
     dispatch(getAdmin());
-  }, []);
+  }, [dispatch]);
 
   const initialValues = {
     name: me?.name,

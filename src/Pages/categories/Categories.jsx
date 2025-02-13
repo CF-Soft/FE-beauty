@@ -28,7 +28,7 @@ const Categories = () => {
 
   useEffect(() => {
     dispatch(getCategory({}));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>

@@ -312,7 +312,7 @@ export const deleteWork = (data, role) => {
       .then(function (response) {
         if (response.data.succes) {
           dispatch({
-            type: role == "admin" ? DELETE_WORKS : DELETE_ACCESS_WORKS,
+            type: role === "admin" ? DELETE_WORKS : DELETE_ACCESS_WORKS,
             payload: data,
           });
         }
@@ -347,7 +347,7 @@ export const getAccessWorks = (data) => {
 };
 
 export const changeAccessedWork = (data) => {
-  return (dispatch) => {
+  return () => {
     axios
       .post(
         `${keys.api}/user/change-access-work`,

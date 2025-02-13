@@ -10,7 +10,6 @@ import {
 } from "../../store/actions/user-action";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { HOME_PAGE } from "../../routing/pats";
-import dayjs from "dayjs";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -25,7 +24,7 @@ const AllWork = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(
@@ -33,7 +32,7 @@ const AllWork = () => {
         userId: open,
       })
     );
-  }, [open]);
+  }, [open, dispatch]);
 
   console.log(data);
   return (

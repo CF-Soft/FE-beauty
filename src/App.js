@@ -14,7 +14,7 @@ function App() {
       dispatch(setAuthAction(true));
       dispatch(getMe());
     } else navigate(LOGIN_PAGE);
-  }, []);
+  }, [dispatch, navigate]);
 
   return (
       <div>

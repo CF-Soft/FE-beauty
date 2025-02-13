@@ -47,7 +47,7 @@ export const userReducer = (state = initialState, action) => {
       };
     case EDIT_SERVICES:
       const editedData = state.services.map((i) =>
-        i.id == action.payload.id ? action.payload : i
+        i.id === action.payload.id ? action.payload : i
       );
       return {
         ...state,
@@ -87,7 +87,7 @@ export const userReducer = (state = initialState, action) => {
       };
     case EDIT_WORK:
       const edited = state.work.map((i) =>
-        i.id == action.payload.id ? action.payload : i
+        i.id === action.payload.id ? action.payload : i
       );
       return {
         ...state,

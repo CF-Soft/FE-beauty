@@ -10,20 +10,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  addWork,
-  deleteService,
   deleteWork,
   getServices,
   getUser,
   getWorks,
 } from "../../store/actions/user-action";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Services from "../../components/sercvices/Services";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { HOME_PAGE } from "../../routing/pats";
-import AddIcon from "@mui/icons-material/Add";
-import AddServices from "../../components/addsercvices/AddServices";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -35,9 +29,7 @@ import { getMe } from "../../store/actions/auth-action";
 import AddWork from "../../components/addWork/AddWork";
 import dayjs from "dayjs";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 const Work = () => {
@@ -45,15 +37,13 @@ const Work = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [current, setCurrent] = useState(null);
-  const [arxive, setArxive] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [arxive] = useState(false);
   const [add, setSetAdd] = useState(false);
   const [results, setResults] = useState(false);
   const firstDayOfMonth = dayjs().startOf("month");
   const lastDayOfMonth = dayjs().endOf("month");
   const [value, setValue] = useState();
   const [category, setCategory] = useState();
-  const handleOpen = () => setOpen(true);
   const data = useSelector((state) => state.users.work);
   const role = useSelector((state) => state.auth.isSuper);
   const user = useSelector((state) => state.auth.user);
@@ -78,12 +68,12 @@ const Work = () => {
         userId: id,
       })
     );
-  }, [value, arxive]);
+  }, [value, arxive, dispatch, id]);
 
   useEffect(() => {
     dispatch(getUser({ id }));
     dispatch(getMe());
-  }, []);
+  }, [dispatch, id]);
 
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>
@@ -138,8 +128,8 @@ const Work = () => {
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                   value={value}
-                  minDate={role == "admin" ? firstDayOfMonth : null}
-                  maxDate={role == "admin" ? lastDayOfMonth : null}
+                  minDate={role === "admin" ? firstDayOfMonth : null}
+                  maxDate={role === "admin" ? lastDayOfMonth : null}
                   onChange={(newValue) =>
                     setValue(newValue.format("YYYY-MM-DD"))
                   }
@@ -253,10 +243,10 @@ const Work = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: current == row.id ? "white" : "#2C2125",
-                color: current == row.id ? "#2C2125" : "white",
+                backgroundColor: current === row.id ? "white" : "#2C2125",
+                color: current === row.id ? "#2C2125" : "white",
                 border: "1px solid",
-                borderColor: current == row.id ? "#2C2125" : "white",
+                borderColor: current === row.id ? "#2C2125" : "white",
                 cursor: "pointer",
                 flexDirection: "column",
               }}

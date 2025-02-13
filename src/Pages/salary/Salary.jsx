@@ -37,7 +37,7 @@ const Salary = () => {
   const lastDayOfMonth = dayjs().endOf("month");
   const [value, setValue] = useState();
   const [access, setAccess] = useState(false);
-  const [month, setMonth] = useState(null);
+  const [month] = useState(null);
   const [monthly, setMontly] = useState(false);
   const data = useSelector((state) => state.users.work);
   const role = useSelector((state) => state.auth.isSuper);
@@ -62,7 +62,7 @@ const Salary = () => {
   useEffect(() => {
     dispatch(getUsers());
     dispatch(getMe());
-  }, []);
+  }, [dispatch]);
   const getMonth = (month) => {
     const startOfMonth = month?.startOf("month");
     const endOfMonth = month?.endOf("month");
@@ -130,14 +130,14 @@ const Salary = () => {
             </Button>
           )}
         </Box>
-        {role == "admin" ? (
+        {role === "admin" ? (
           <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
                   value={value}
-                  minDate={role == "admin" ? firstDayOfMonth : null}
-                  maxDate={role == "admin" ? lastDayOfMonth : null}
+                  minDate={role === "admin" ? firstDayOfMonth : null}
+                  maxDate={role === "admin" ? lastDayOfMonth : null}
                   onChange={(newValue) =>
                     setValue(newValue.format("YYYY-MM-DD"))
                   }
