@@ -41,12 +41,13 @@ export const deleteCategory = (data) => {
             type: DELETE_CATEGORY,
             payload: data,
           });
-        } else
-        Swal.fire({
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        } else {
+          Swal.fire({
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       })
       .catch(function (error) {
         console.error(error);

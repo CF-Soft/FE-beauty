@@ -19,6 +19,7 @@ import {
 } from "../../store/actions/category-action";
 import { useNavigate } from "react-router-dom";
 import AddCategory from "../../components/addCategory/AddCategory";
+import Swal from "sweetalert2";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,18 @@ const Categories = () => {
   useEffect(() => {
     dispatch(getCategory({}));
   }, []);
+  const handle = () => {
+      Swal.fire({
+          title: "Drag me!",
+          icon: "success",
+          confirmButtonText: 'Cool'
+      })
+  }
 
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>
       <Box p={2}>
-        <h1>կատեգորիա</h1>
+        <h1 onClick={handle}>կատեգորիա</h1>
       </Box>
       <Box
         p={2}

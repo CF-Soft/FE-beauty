@@ -77,7 +77,7 @@ export const deleteUser = (data) => {
         }
       )
       .then(function (response) {
-        if (response.data.succes) {
+        if (response.data.success) {
           dispatch({
             type: DELETE_USER,
             payload: data,
@@ -104,7 +104,7 @@ export const addUser = (data) => {
         },
       })
       .then(function (response) {
-        if (response.data.succes) {
+        if (response.data.success) {
           dispatch({
             type: ADD_USER,
             payload: response.data.data,
