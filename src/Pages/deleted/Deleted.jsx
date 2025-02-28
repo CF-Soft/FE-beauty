@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { getMe } from "../../store/actions/auth-action";
 import { HOME_PAGE } from "../../routing/pats";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import Swal from "sweetalert2";
 
 const Deleted = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,32 @@ const Deleted = () => {
     dispatch(getAccessWorks());
     dispatch(getMe());
   }, []);
+
+    const handleDeleteWork = (id, role)=>{
+        Swal.fire({
+            title: "Համոզվա՞ծ ես։",
+            text: "Դուք ցանկանում եք ջնջել?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Ոչ",
+            confirmButtonText: "Այո՛"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteWork(id, role));
+                dispatch(getAccessWorks());
+                Swal.fire({
+                    title: "Ջնջված է",
+                    text: "Ձեր ֆայլը ջնջվել է:",
+                    showConfirmButton: false,
+                    icon: "success",
+                    timer: 1500,
+                });
+            }
+        });
+    }
+
   return (
     <Box>
       <Box p={2}>
@@ -110,7 +137,7 @@ const Deleted = () => {
                         <Button
                           variant="outlined"
                           color="error"
-                          onClick={() => dispatch(deleteWork(row.id, role))}
+                          onClick={() => handleDeleteWork(deleteWork(row.id, role))}
                         >
                           <DeleteIcon sx={{ color: "red" }} />
                         </Button>

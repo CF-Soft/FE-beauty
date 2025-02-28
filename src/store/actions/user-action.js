@@ -387,7 +387,13 @@ export const changeAccessedWork = (data) => {
           },
         }
       )
-      .then(function (response) {})
+      .then(function (response) {
+        Swal.fire({
+          showConfirmButton: false,
+          icon: "success",
+          timer: 1500,
+        });
+      })
       .catch(function (error) {
         console.error(error);
       });

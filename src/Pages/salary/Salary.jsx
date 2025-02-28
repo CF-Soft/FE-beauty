@@ -28,6 +28,7 @@ import dayjs from "dayjs";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { MonthCalendar } from "@mui/x-date-pickers";
+import Swal from "sweetalert2";
 
 const Salary = () => {
   const dispatch = useDispatch();
@@ -37,12 +38,13 @@ const Salary = () => {
   const lastDayOfMonth = dayjs().endOf("month");
   const [value, setValue] = useState();
   const [access, setAccess] = useState(false);
-  const [month, setMonth] = useState(null);
+  const [month] = useState(null);
   const [monthly, setMontly] = useState(false);
   const data = useSelector((state) => state.users.work);
   const role = useSelector((state) => state.auth.isSuper);
   const users = useSelector((state) => state.users.users);
   const calc = useSelector((state) => state.users.results);
+  const [usersName, setUsersName] = useState({})
 
   useEffect(() => {
     dispatch(
@@ -63,6 +65,44 @@ const Salary = () => {
     dispatch(getUsers());
     dispatch(getMe());
   }, []);
+
+    useEffect(() => {
+        if (users) {
+            const newUsersName = { ...usersName }; // Copy the existing state
+
+            for (let i = 0; i < users.length; i++) {
+                console.log(users[i]?.id, 'users[i]?.id');
+                console.log(users[i]?.name, 'users[i]?.name');
+                newUsersName[users[i]?.id] = users[i]?.name; // Accumulate updates
+            }
+
+            setUsersName(newUsersName); // Set the state once after the loop
+        }
+    }, [users]);
+
+  const handleDeleteWork = (id, role)=>{
+      Swal.fire({
+          title: "Համոզվա՞ծ ես։",
+          text: "Դուք ցանկանում եք ջնջել?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Ոչ",
+          confirmButtonText: "Այո՛"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              dispatch(deleteWork(id, role));
+              Swal.fire({
+                  title: "Ջնջված է",
+                  text: "Ձեր ֆայլը ջնջվել է:",
+                  showConfirmButton: false,
+                  icon: "success",
+                  timer: 1500,
+              });
+          }
+      });
+  }
   const getMonth = (month) => {
     const startOfMonth = month?.startOf("month");
     const endOfMonth = month?.endOf("month");
@@ -235,9 +275,10 @@ const Salary = () => {
               </TableHead>
               <TableBody>
                 {data?.length ? (
-                  data?.map((row) => (
+                  data?.map((row, index) => {
+                      return (
                     <TableRow
-                      key={row.modeName}
+                      key={index}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
@@ -256,7 +297,7 @@ const Salary = () => {
                         {row.createdAt.slice(11, 16)}
                       </TableCell> */}
                       <TableCell component="th" scope="row" align="left">
-                        {row?.Service?.User?.name}
+                        {row?.Service?.User?.name || usersName[row?.userId]}
                       </TableCell>
                       <TableCell component="th" scope="row" align="left">
                         {row?.Service?.name}
@@ -281,14 +322,14 @@ const Salary = () => {
                           <Button
                             variant="outlined"
                             color="error"
-                            onClick={() => dispatch(deleteWork(row.id, role))}
+                            onClick={() => handleDeleteWork(row.id, role)}
                           >
                             <DeleteIcon sx={{ color: "red" }} />
                           </Button>
                         </TableCell>
                       )}
                     </TableRow>
-                  ))
+                  )})
                 ) : (
                   <Box
                     p={2}
