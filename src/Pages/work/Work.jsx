@@ -40,6 +40,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Swal from "sweetalert2";
+import {deleteCategory} from "../../store/actions/category-action";
 
 const Work = () => {
   const { id } = useParams();
@@ -59,6 +60,30 @@ const Work = () => {
   const role = useSelector((state) => state.auth.isSuper);
   const user = useSelector((state) => state.auth.user);
   const services = useSelector((state) => state.users.services);
+
+  const handleDeleteWork = (id, role) => {
+      Swal.fire({
+          title: "Համոզվա՞ծ ես։",
+          text: "Դուք ցանկանում եք ջնջել?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Ոչ",
+          confirmButtonText: "Այո՛"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              dispatch(deleteWork(id, role))
+              Swal.fire({
+                  title: "Ջնջված է",
+                  text: "Ձեր ֆայլը ջնջվել է:",
+                  showConfirmButton: false,
+                  icon: "success",
+                  timer: 2000,
+              });
+          }
+      });
+  }
 
   useEffect(() => {
     !arxive
@@ -210,7 +235,7 @@ const Work = () => {
                             <Button
                               variant="outlined"
                               color="error"
-                              onClick={() => dispatch(deleteWork(row.id, role))}
+                              onClick={() => handleDeleteWork(row.id, role)}
                             >
                               <DeleteIcon sx={{ color: "red" }} />
                             </Button>

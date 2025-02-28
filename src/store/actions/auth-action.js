@@ -9,6 +9,7 @@ export const loginAction = (data) => {
     axios
       .post(`${keys.api}/admin/login`, data)
       .then(function (response) {
+
         if (response.data.succes) {
           dispatch({
             type: LOGIN_ACTION,
@@ -42,11 +43,17 @@ export const loginAction = (data) => {
             icon: "error",
             title: "Oops...",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           });
       })
       .catch(function (error) {
         console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       });
   };
 };
@@ -157,7 +164,7 @@ export const editAdmin = (data) => {
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           });
           axios
             .post(

@@ -82,12 +82,7 @@ export const deleteUser = (data) => {
             type: DELETE_USER,
             payload: data,
           });
-        } else
-          Swal.fire({
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -109,12 +104,12 @@ export const addUser = (data) => {
             type: ADD_USER,
             payload: response.data.data,
           });
-        } else
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
           });
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -163,12 +158,8 @@ export const deleteService = (data) => {
             type: DELETE_SERVICES,
             payload: data,
           });
-        } else
-          Swal.fire({
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+        }
+
       })
       .catch(function (error) {
         console.error(error);
@@ -190,12 +181,13 @@ export const editService = (data) => {
             type: EDIT_SERVICES,
             payload: response.data.data,
           });
-        } else
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
           });
+        }
+
       })
       .catch(function (error) {
         console.error(error);
@@ -217,12 +209,13 @@ export const addService = (data) => {
             type: ADD_SERVICES,
             payload: response.data.data,
           });
-        } else
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           });
+        }
+
       })
       .catch(function (error) {
         console.error(error);
@@ -247,12 +240,12 @@ export const dengerDelete = () => {
           dispatch({
             type: DENGER_DELETE,
           });
-        } else
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           });
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -320,12 +313,12 @@ export const addWork = (data) => {
             type: ADD_WORKS,
             payload: response.data.data,
           });
-        } else
           Swal.fire({
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
           });
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -351,17 +344,7 @@ export const deleteWork = (data, role) => {
             type: role == "admin" ? DELETE_WORKS : DELETE_ACCESS_WORKS,
             payload: data,
           });
-          Swal.fire({
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        } else
-          Swal.fire({
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+        }
       })
       .catch(function (error) {
         console.error(error);

@@ -25,6 +25,7 @@ import {
   SALARY_PAGE,
 } from "../../routing/pats";
 import { getCategory } from "../../store/actions/category-action";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,58 @@ const Home = () => {
     dispatch(getMe());
     dispatch(getCategory());
   }, []);
+
+  const deleteService = (row) => {
+      Swal.fire({
+          title: "Համոզվա՞ծ ես։",
+          text: "Դուք ցանկանում եք ջնջել?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Ոչ",
+          confirmButtonText: "Այո՛"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              dispatch(deleteUser(row.id));
+              dispatch(getCategory());
+              setTimeout(() => {
+                  dispatch(getCategory());
+              }, "1000");
+              Swal.fire({
+                  title: "Ջնջված է",
+                  text: "Ձեր ֆայլը ջնջվել է:",
+                  showConfirmButton: false,
+                  icon: "success",
+                  timer: 1000,
+              });
+          }
+      });
+  }
+
+  const deleteAllInfo = () => {
+      Swal.fire({
+          title: "Համոզվա՞ծ ես։",
+          text: "Դուք ցանկանում եք ջնջել?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Ոչ",
+          confirmButtonText: "Այո՛"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              dispatch(dengerDelete())
+              dispatch(getCategory());
+              Swal.fire({
+                  title: "Ջնջված է",
+                  text: "Ձեր ֆայլը ջնջվել է:",
+                  icon: "success",
+                  timer: 1000
+              });
+          }
+      });
+  }
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>
       <Box
@@ -82,7 +135,7 @@ const Home = () => {
           <Box>
             <Button
               variant="outlined"
-              onClick={() => dispatch(dengerDelete())}
+              onClick={() => deleteAllInfo()}
               sx={{ color: "red", borderColor: "red" }}
             >
               <DeleteForeverIcon sx={{ color: "red" }} /> Ջնջել բոլոր տվյալները
@@ -196,13 +249,7 @@ const Home = () => {
                           <Button
                             color="error"
                             variant="outlined"
-                            onClick={() => {
-                              dispatch(deleteUser(row.id));
-                              dispatch(getCategory());
-                              setTimeout(() => {
-                                dispatch(getCategory());
-                              }, "1000");
-                            }}
+                            onClick={() => deleteService(row)}
                             sx={{ width: "200px" }}
                           >
                             <DeleteIcon sx={{ color: "red" }} />

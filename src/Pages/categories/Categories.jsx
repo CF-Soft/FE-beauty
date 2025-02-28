@@ -19,6 +19,8 @@ import {
 } from "../../store/actions/category-action";
 import { useNavigate } from "react-router-dom";
 import AddCategory from "../../components/addCategory/AddCategory";
+import Swal from "sweetalert2";
+
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -29,7 +31,29 @@ const Categories = () => {
   useEffect(() => {
     dispatch(getCategory({}));
   }, []);
-
+const deleteCategoryById = (id) => {
+    Swal.fire({
+        title: "Համոզվա՞ծ ես։",
+        text: "Դուք ցանկանում եք ջնջել?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Ոչ",
+        confirmButtonText: "Այո՛"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            dispatch(deleteCategory(id))
+            Swal.fire({
+                title: "Ջնջված է",
+                text: "Ձեր ֆայլը ջնջվել է:",
+                showConfirmButton: false,
+                icon: "success",
+                timer: 2000,
+            });
+        }
+    });
+}
   return (
     <Box component={Paper} sx={{ minHeight: "100vh" }}>
       <Box p={2}>
@@ -85,7 +109,7 @@ const Categories = () => {
                         <Button
                           variant="outlined"
                           color="error"
-                          onClick={() => dispatch(deleteCategory(row.id))}
+                          onClick={() => deleteCategoryById(row.id)}
                         >
                           <DeleteIcon sx={{ color: "red" }} />
                         </Button>

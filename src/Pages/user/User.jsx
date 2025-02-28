@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  deleteService,
+  deleteService, dengerDelete,
   getServices,
   getUser,
 } from "../../store/actions/user-action";
@@ -29,6 +29,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import Results from "../../components/results/Results";
 import { getMe } from "../../store/actions/auth-action";
+import Swal from "sweetalert2";
+import {getCategory} from "../../store/actions/category-action";
 
 const User = () => {
   const { id } = useParams();
@@ -58,6 +60,30 @@ const User = () => {
     dispatch(getUser({ id }));
     dispatch(getMe());
   }, []);
+
+  const handleDeleteService = (id) => {
+    Swal.fire({
+      title: "Համոզվա՞ծ ես։",
+      text: "Դուք ցանկանում եք ջնջել?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Ոչ",
+      confirmButtonText: "Այո՛"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteService(id))
+        Swal.fire({
+          title: "Ջնջված է",
+          text: "Ձեր ֆայլը ջնջվել է:",
+          showConfirmButton: false,
+          icon: "success",
+          duration: 1500,
+        });
+      }
+    });
+  }
   return (
     <Box>
       <Box p={2}>
@@ -129,7 +155,7 @@ const User = () => {
                       {role === "superAdmin" && (
                         <TableCell component="th" scope="row" align="left">
                           <Button
-                            variant="contained"
+                            variant="outlined"
                             onClick={() => {
                               setCurrent(row);
                               handleOpen();
@@ -144,7 +170,7 @@ const User = () => {
                           <Button
                             variant="outlined"
                             color="error"
-                            onClick={() => dispatch(deleteService(row.id))}
+                            onClick={() =>handleDeleteService(row.id)}
                           >
                             <DeleteIcon />
                           </Button>
